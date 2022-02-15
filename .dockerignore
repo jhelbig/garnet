@@ -1,0 +1,11 @@
+.git*
+.editorconfig
+.dockerignore
+docker-compose.yml
+Dockerfile
+dump*
+garnet*
+dev
+*.komodoproject
+./lib
+./spec

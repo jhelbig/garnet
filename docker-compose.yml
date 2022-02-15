@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+#  rethinkdb:
+#    image: rethinkdb
+#    restart: on-failure
+#    ports:
+#      - "81:8080"
+#    networks:
+#      - net
+#    volumes:
+#      - "./db_data:/data"
+
+  app:
+    image: crystallang/crystal:latest-alpine
+#    restart: on-failure
+    ports:
+      - "8080:8080"
+    command: /bin/sh -c "touch /var/run/chambers_shell.pid; while [ -f /var/run/chambers_shell.pid ]; do sleep 30; done"
+    working_dir: "/usr/share/project"
+    volumes:
+      - "./:/usr/share/project"
+#    environment:
+#      KEY: "${DOT_ENV_VALUE}"

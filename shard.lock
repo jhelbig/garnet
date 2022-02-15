@@ -1,0 +1,26 @@
+version: 2.0
+shards:
+  pool:
+    git: https://github.com/ysbaddaden/pool.git
+    version: 0.2.4
+
+  radix:
+    git: https://github.com/luislavena/radix.git
+    version: 0.4.1
+
+  redis:
+    git: https://github.com/stefanwille/crystal-redis.git
+    version: 2.8.3
+
+  router:
+    git: https://github.com/tbrand/router.cr.git
+    version: 0.2.8
+
+  watcher:
+    git: https://github.com/faustinoaq/watcher.git
+    version: 0.3.0
+
+  ydl:
+    git: https://github.com/jhelbig/ydl.git
+    version: 0.1.0+git.commit.835164bc964429008642bff05ed5eb22a4331d16
+

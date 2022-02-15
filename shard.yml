@@ -1,0 +1,23 @@
+name: garnet
+version: 1.5.8
+
+authors:
+  - Jake Helbig <jake@jakehelbig.com>
+
+targets:
+  garnet:
+    main: src/garnet.cr
+
+dependencies:
+  router:
+    github: tbrand/router.cr
+  ydl:
+    github: jhelbig/ydl
+  watcher:
+    github: faustinoaq/watcher
+  redis:
+    github: stefanwille/crystal-redis
+
+crystal: 1.3.2
+
+license: MIT
