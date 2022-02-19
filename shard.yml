@@ -17,6 +17,8 @@ dependencies:
     github: faustinoaq/watcher
   redis:
     github: stefanwille/crystal-redis
+  cors:
+    github: prutya/cors
 
 crystal: 1.3.2
 

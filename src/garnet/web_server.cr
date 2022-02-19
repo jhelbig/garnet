@@ -1,5 +1,6 @@
 require "router"
 require "redis"
+require "cors"
 module Garnet
   class WebServer
     include Router
@@ -19,6 +20,8 @@ module Garnet
             "audio": ydl_vid.audio_formats.map{|af| af.attributes }
           }
         }.to_json
+        context.response.headers["Access-Control-Allow-Origin"] = "*"
+        context.response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS, PUT, PATCH, DELETE"
         context.response.headers["Content-Type"] = "application/json"
         context.response.print response_body
         context
@@ -33,6 +36,8 @@ module Garnet
         else
           push_response = false
         end
+        context.response.headers["Access-Control-Allow-Origin"] = "*"
+        context.response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS, PUT, PATCH, DELETE"
         context.response.headers["Content-Type"] = "application/json"
         context.response.print push_response
         context
@@ -42,6 +47,8 @@ module Garnet
 
       get "/downloads/active" do |context, params|
         active_download = JSON.parse(@@redis.get(Garnet::ACTIVE_DOWNLOAD) || "{}")
+        context.response.headers["Access-Control-Allow-Origin"] = "*"
+        context.response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS, PUT, PATCH, DELETE"
         context.response.headers["Content-Type"] = "application/json"
         context.response.print active_download.to_json
         context
@@ -49,6 +56,8 @@ module Garnet
 
       get "/downloads/list" do |context, params|
         dlist = @@redis.lrange(Garnet::DOWNLOAD_QUEUE, 0, -1).map{|vd| JSON.parse(vd.to_s) }
+        context.response.headers["Access-Control-Allow-Origin"] = "*"
+        context.response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS, PUT, PATCH, DELETE"
         context.response.headers["Content-Type"] = "application/json"
         context.response.print dlist.to_json
         context
@@ -56,6 +65,8 @@ module Garnet
 
       delete "/downloads/clear" do |context, params|
         @@redis.del(Garnet::DOWNLOAD_QUEUE)
+        context.response.headers["Access-Control-Allow-Origin"] = "*"
+        context.response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS, PUT, PATCH, DELETE"
         context.response.headers["Content-Type"] = "application/json"
         context.response.print true
         context
@@ -63,7 +74,18 @@ module Garnet
     end
 
     def run
-      server = HTTP::Server.new(route_handler)
+      server = HTTP::Server.new([
+        route_handler,
+        Cors::Handler.new(
+          respond_ok: ->(ctx : HTTP::Server::Context) {
+            ctx.response.status = HTTP::Status::OK
+            ctx.response.content_type = "application/json"
+            ctx.response.print("{}")
+          },
+          allowed_origins: ["*"],
+          allowed_methods: ["GET","POST","OPTIONS","PUT","PATCH","DELETE"]
+        )
+      ])
       address = server.bind_tcp Garnet::BIND_INTERFACE, Garnet::BIND_PORT
       puts "Listening on http://#{address}"
       server.listen
