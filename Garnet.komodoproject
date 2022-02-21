@@ -2,6 +2,10 @@
 <!-- Komodo Project File - DO NOT EDIT -->
 <project id="3fa1006d-88da-4c66-9f65-04be93b374be" kpf_version="5" name="Garnet.komodoproject">
 <preference-set idref="3fa1006d-88da-4c66-9f65-04be93b374be" id="project" preftype="project">
+  <long id="codeintel.scanner.max_depth">10</long>
+  <string id="import_exclude_matches">*.*~;*.bak;*.tmp;CVS;.#*;*.pyo;*.pyc;.svn;.git;.hg;.bzr;*%25*;tmp*.html;.DS_Store;*.swp;*.kpf;*.komodoproject;.komodotools;__pycache__;node_modules</string>
+  <long id="indentWidth">2</long>
   <long id="prefs_version">1</long>
+  <long id="tabWidth">2</long>
 </preference-set>
 </project>

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker run --rm -e YDL_PATH=/usr/share/project/downloads -p 80:8080 -w "/usr/share/project" --name garnet_test jmhelbig/garnet:latest
