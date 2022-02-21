@@ -14,6 +14,8 @@ module Garnet
         response_body = {
           "title": ydl_vid.title,
           "url": ydl_vid.url,
+          "channel_url": ydl_vid.channel_url,
+          "thumbnails": ydl_vid.thumbnails.map{|tn| tn.attributes },
           "best_formats": ydl_vid.best_formats.map{|vf| vf.attributes },
           "full_formats":{
             "video": ydl_vid.full_formats.map{|vf| vf.attributes },
