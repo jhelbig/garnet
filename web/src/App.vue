@@ -1,15 +1,16 @@
 <template>
   <div>
     <TopNav></TopNav>
+    <VidDetails :loading="loading" :title="title" :thumburl="thumbnail" :vurl="video_url" :churl="channel_url"></VidDetails>
     <b-container>
       <b-row>
         <b-col>
-          <VidForm @updateQualityResults="updateResults"></VidForm>
+          <VidForm :resultsLoaded="results.length > 0" :leadMsg="leadMessage" :loading="loading" @formSubmitted="updateLoading" @updateQualityResults="updateResults"></VidForm>
         </b-col>
       </b-row>
       <b-row>
         <b-col>
-          <QualityResults :results="results" :best="best_results"></QualityResults>
+          <QualityResults v-if="results.length > 0" :loading="loading" :results="results" :best="best_results"></QualityResults>
         </b-col>
       </b-row>
     </b-container>
@@ -27,33 +28,57 @@
     //></video-background>
 import TopNav from './components/TopNav'
 import VidForm from './components/VidForm'
+import VidDetails from './components/VidDetails'
 import QualityResults from './components/QualityResults'
+
 
 export default {
   name: 'App',
   data() {
     return {
-      video_results: [],
-      audio_results: [],
+      title: "UNKNOWN",
+      thumbnail: require('@/assets/loading_img.gif'),
+      video_url: "",
+      channel_url: "",
       best_results: [],
-      results: []
+      results: [],
+      loading: false,
+      leadMessage: "Enter a video URL in the form below and submit for quality selection"
     }
   },
   components: {
     //VideoBackground,
     TopNav,
     VidForm,
+    VidDetails,
     QualityResults
   },
   methods: {
+    updateLoading(loading) {
+      this.loading = loading;
+      if (this.loading) {
+        this.leadMessage = "Loading Results...";
+      }else{
+        this.leadMessage = "Enter a video URL in the form below and submit for quality selection";
+      }
+    },
     updateResults(results) {
       if (results.length == 0){
+        this.title = "";
+        this.thumbnail = require('@/assets/loading_img.gif');
+        this.video_url = "";
+        this.channel_url = "";
         this.results = [];
         this.best_results = [];
       }else{
+        this.title = results.title;
+        this.video_url = results.url;
+        this.channel_url = results.channel_url;
+        this.thumbnail = results.thumbnails.reduce((ary,obj) => (obj.id == "3" && ary.push(obj), ary), [])[0].url;
         this.results = results.full_formats.video.concat(results.full_formats.audio);
         this.best_results = results.best_formats;
       }
+      this.updateLoading(false);
     }
   }
 }

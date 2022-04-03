@@ -47,8 +47,6 @@ export default {
             key;
             let title = "";
             let variant = "secondary";
-            console.log(this.best);
-            console.log(item);
             if (this.best.map(data => data.id).includes(item.id)){
               variant = "warning";
               title = "Best ";
