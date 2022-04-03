@@ -1,5 +1,9 @@
 version: 2.0
 shards:
+  cors:
+    git: https://github.com/prutya/cors.git
+    version: 0.3.0
+
   pool:
     git: https://github.com/ysbaddaden/pool.git
     version: 0.2.4
@@ -22,5 +26,5 @@ shards:
 
   ydl:
     git: https://github.com/jhelbig/ydl.git
-    version: 0.1.0+git.commit.835164bc964429008642bff05ed5eb22a4331d16
+    version: 0.1.0+git.commit.271882120782511fe3c6b424c4517052400e45db
 
