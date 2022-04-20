@@ -1,11 +1,11 @@
 <template>
   <b-table striped borderless outlined small dark hover v-bind:items="results" :fields="fields">
     <template #cell(id)="cell">
-      <b-badge variant="primary">
-        <b-link :href="'#'+cell.value" title="Click to download">
+      <b-link href="#" v-on:click="downloadContent(cell.value)" title="Click to download">
+        <b-badge variant="primary">
           <b-icon icon="download" variant="white" ></b-icon>
-        </b-link>
-      </b-badge>
+        </b-badge>
+      </b-link>
     </template>
     <template #cell(resolution)="cell">
       <template v-if="cell.item.muxed">
@@ -28,7 +28,7 @@ export default {
   name: 'QualityResults',
   components: {
   },
-  props: ['results', 'best'],
+  props: ['results', 'best', 'video_url'],
   data() {
     return {
       fields: [
@@ -82,6 +82,24 @@ export default {
           label:"Video Grade"
         }
       ]
+    }
+  },
+  methods: {
+    async downloadContent(cid) {
+      fetch("http://localhost/video/download", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({youtube_url: this.video_url, format_id: cid})
+      })
+      .then(response => {
+        if (response.status === 200) {
+          this.$emit('downloadStatus', true);
+        }else{
+          this.$emit('downloadStatus', false);
+        }
+      })
     }
   }
 }

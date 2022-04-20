@@ -10,7 +10,7 @@
       </b-row>
       <b-row>
         <b-col>
-          <QualityResults v-if="results.length > 0" :loading="loading" :results="results" :best="best_results"></QualityResults>
+          <QualityResults v-if="results.length > 0" :loading="loading" :results="results" :video_url="video_url" :best="best_results" @downloadStatus="downloadStatus"></QualityResults>
         </b-col>
       </b-row>
     </b-container>
@@ -79,6 +79,22 @@ export default {
         this.best_results = results.best_formats;
       }
       this.updateLoading(false);
+    },
+    downloadStatus(status) {
+      if (status){
+        this.$bvToast.toast('The download successfully queued and will begin at the next availability.', {
+          title: `Success`,
+          variant: 'success',
+          solid: true
+        });
+        this.updateResults([]);
+      }else{
+        this.$bvToast.toast('The download failed to queue, please contact the system administrator for help.', {
+          title: `Error`,
+          variant: 'warning',
+          solid: true
+        })
+      }
     }
   }
 }
