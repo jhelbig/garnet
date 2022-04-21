@@ -75,7 +75,21 @@ export default {
         this.video_url = results.url;
         this.channel_url = results.channel_url;
         this.thumbnail = results.thumbnails.reduce((ary,obj) => (obj.id == "3" && ary.push(obj), ary), [])[0].url;
-        this.results = results.full_formats.video.concat(results.full_formats.audio);
+        let bestVideo = results.best_formats.filter(format => { return format.resolution !== "Audio" })[0];
+        let bestAudio = results.best_formats.filter(format => { return format.resolution === "Audio" })[0];
+        let tempResults = [{
+          "id": "best",
+          "resolution": bestVideo.resolution,
+          "name": "Best",
+          "ydl_name": "Best - audio & video (muxed)",
+          "quality": bestAudio.quality,
+          "filesize": bestVideo.filesize+bestAudio.filesize,
+          "extension": "mp4",
+          "quality_grade": bestVideo.quality_grade+bestAudio.quality_grade+1,
+          "muxed": true
+        }];
+        Array.prototype.push.apply(tempResults,results.full_formats.video.concat(results.full_formats.audio));
+        this.results = tempResults;
         this.best_results = results.best_formats;
       }
       this.updateLoading(false);

@@ -18,9 +18,8 @@
         <b-row>
           <b-col class="text-left">
             <b-button-group>
-              <b-button type="submit" variant="primary"><b-icon v-if="loading" icon="arrow-clockwise" animation="spin-pulse" font-scale="1"></b-icon> Details</b-button>
-              <b-button v-if="resultsLoaded && !loading" type="submit" variant="info"><b-icon-download></b-icon-download> Best Quality</b-button>
-              <b-button v-if="resultsLoaded && !loading" v-b-toggle.video-details :disabled="false">More Details</b-button>
+              <b-button v-if="!resultsLoaded" type="submit" variant="primary"><b-icon v-if="loading" icon="arrow-clockwise" animation="spin-pulse" font-scale="1"></b-icon> Details</b-button>
+              <b-button v-if="resultsLoaded && !loading" v-b-toggle.video-details :disabled="false">Video Details</b-button>
             </b-button-group>
             {{form.results}}
           </b-col>

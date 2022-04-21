@@ -9,7 +9,7 @@
     </template>
     <template #cell(resolution)="cell">
       <template v-if="cell.item.muxed">
-        <b-badge variant="info" title="Video & Audio">
+        <b-badge :variant="cell.value.variant" :title="cell.value.title">
           <b-icon icon="camera-reels-fill"></b-icon>
           <b-icon icon="plus"></b-icon>
           <b-icon icon="soundwave"></b-icon>
@@ -44,17 +44,26 @@ export default {
           label: "File Type",
           class: "text-center",
           formatter: (value, key, item) => {
-            key;
             let title = "";
             let variant = "secondary";
-            if (this.best.map(data => data.id).includes(item.id)){
+            if (item.muxed) {
+              variant = "info";
+              if (item.name == "Best") {
+                title = "Best ";
+              }
+            }
+            if (item.name == "Best" || this.best.map(data => data.id).includes(item.id)){
               variant = "warning";
               title = "Best ";
             }
             if (value == "Audio") {
               return {icon: "soundwave", title: `${title}Audio`, variant: variant, muxed: item.muxed};
             }else{
-              return {icon: "camera-reels-fill", title: `${title}Video`, variant: variant, muxed: item.muxed};
+              if (item.muxed){
+                return {icon: "camera-reels-fill", title: `${title}Audio & Video`, variant: variant, muxed: item.muxed};
+              }else{
+                return {icon: "camera-reels-fill", title: `${title}Video`, variant: variant, muxed: item.muxed};
+              }
             }
           }
         },
