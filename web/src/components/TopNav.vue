@@ -6,6 +6,7 @@
       </b-navbar-brand>
       <b-navbar-nav>
         <b-nav-item href="https://www.youtube.com/" target="_BLANK"><b-icon-youtube style="color:red;"></b-icon-youtube> Youtube</b-nav-item>
+        <b-nav-item v-b-toggle.download-queue :disabled="false">Download Queue</b-nav-item>
   
         <!-- Navbar dropdowns -->
         <b-nav-item-dropdown text="Lang" right>
@@ -21,11 +22,13 @@
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-navbar>
+    <DownloadQueue></DownloadQueue>
   </header>
 </template>
 
 <script>
-import { BImg, BIconYoutube, BNavbar, BNavbarBrand, BNavbarNav, BNavItem, BNavItemDropdown, BDropdownItem } from 'bootstrap-vue'  
+import { BImg, BIconYoutube, BNavbar, BNavbarBrand, BNavbarNav, BNavItem, BNavItemDropdown, BDropdownItem } from 'bootstrap-vue';
+import DownloadQueue from './DownloadQueue';
 
 export default {
   name: 'TopNav',
@@ -37,7 +40,8 @@ export default {
     BNavbarNav,
     BNavItem,
     BNavItemDropdown,
-    BDropdownItem
+    BDropdownItem,
+    DownloadQueue
   },
   props: {
     msg: String
