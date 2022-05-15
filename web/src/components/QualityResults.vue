@@ -88,7 +88,7 @@ export default {
         {
           key: "quality_grade",
           sortable: true,
-          label:"Video Grade"
+          label:"Qualty Score"
         }
       ]
     }
