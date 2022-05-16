@@ -15,8 +15,8 @@ docker run -e YDL_PATH=/downloads -v "${HOME}/Downloads:/downloads" -p 80:8080 -
 ## Development
 
 TODO: Write development instructions here
-https://github.com/tbrand/router.cr
-https://github.com/brobsc/ydl
+https://github.com/jhelbig/router.cr
+https://github.com/jhelbig/ydl
 https://github.com/faustinoaq/watcher
 https://github.com/stefanwille/crystal-redis
 
@@ -30,4 +30,4 @@ https://github.com/stefanwille/crystal-redis
 
 ## Contributors
 
-- [your-name-here](https://github.com/your-github-user) - creator and maintainer
+- [Jake Helbig](https://github.com/jhelbig) - creator and maintainer

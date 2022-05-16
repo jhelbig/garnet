@@ -17,8 +17,8 @@ shards:
     version: 2.8.3
 
   router:
-    git: https://github.com/tbrand/router.cr.git
-    version: 0.2.8
+    git: https://github.com/jhelbig/router.cr.git
+    version: 0.2.9
 
   watcher:
     git: https://github.com/faustinoaq/watcher.git

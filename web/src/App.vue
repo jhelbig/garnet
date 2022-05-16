@@ -77,13 +77,14 @@ export default {
         this.thumbnail = results.thumbnails.reduce((ary,obj) => (obj.id == "3" && ary.push(obj), ary), [])[0].url;
         let bestVideo = results.best_formats.filter(format => { return format.resolution !== "Audio" })[0];
         let bestAudio = results.best_formats.filter(format => { return format.resolution === "Audio" })[0];
+        // take note that the filesize has a best-guess calculation of 15% increase in filesize.  This was fairly accurate over several tests
         let tempResults = [{
           "id": "best",
           "resolution": bestVideo.resolution,
           "name": "Best",
           "ydl_name": "Best - audio & video (muxed)",
           "quality": bestAudio.quality,
-          "filesize": bestVideo.filesize+bestAudio.filesize,
+          "filesize": (bestVideo.filesize+bestAudio.filesize)+((bestVideo.filesize+bestAudio.filesize)*.015),
           "extension": "mp4",
           "quality_grade": bestVideo.quality_grade+bestAudio.quality_grade+1,
           "muxed": true
