@@ -4,7 +4,7 @@ require "ydl"
 require "./garnet/*"
 
 module Garnet
-  VERSION = "1.5.8"
+  VERSION = "1.6.0"
   BIND_PORT = ENV["GARNET_HTTP_PORT"].to_i
   BIND_INTERFACE = "0.0.0.0"
   REDIS_HOST = ENV["GARNET_REDIS_HOST"]
@@ -18,6 +18,7 @@ module Garnet
   ACTIVE_DOWNLOAD = "garnet_active_download"
   DOWNLOADER_SLEEP_TIMEOUT = ENV["GARNET_DOWNLOADER_SLEEP"].to_i
   DOWNLOAD_QUANTITY = 1
+  ALLOWED_HTTP_METHODS = %w(GET POST OPTIONS PUT PATCH DELETE PURGE)
 end
 
 OptionParser.parse do |parser|

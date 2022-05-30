@@ -57,7 +57,6 @@ export default {
       this.$emit('updateQualityResults', [])
       this.$emit('formSubmitted', true);
       event.preventDefault()
-      // this is where an API call comes in
       fetch("http://localhost/video/info", {
         method: "POST",
         headers: {
@@ -67,11 +66,20 @@ export default {
       })
       .then(response => response.json())
       .then(data => {
+        if (data.error) { throw data.error }
         data.best_formats.map(format => { (format.filesize/1024)/1024 });
         return data;
       })
       .then(data => (this.$emit('updateQualityResults', data)))
       .then(this.form.v_url = "")
+      .catch(error => {
+        this.$emit('updateQualityResults', []);
+        this.$bvToast.toast(`Garnet failed to find information on the URL provided for the following reason: ${error}`, {
+          title: `Error`,
+          variant: 'danger',
+          solid: true
+        });
+      });
     },
     onReset(event) {
       event.preventDefault()

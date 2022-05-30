@@ -4,7 +4,7 @@
       <div class="px-3 py-2 text-center">
         <b-img :src="thumburl" fluid thumbnail></b-img>
         <h6 id="vid_title">
-          <marquee-text duration="15">{{title}}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</marquee-text>
+          <marquee-text duration=15>{{title}}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</marquee-text>
         </h6>
         <b-button-group>
           <b-link :href="vurl" target="_BLANK"><b-button variant="primary"><b-icon-film></b-icon-film> Video</b-button></b-link>

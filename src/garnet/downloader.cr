@@ -1,5 +1,6 @@
 # https://www.youtube.com/watch?v=w0HgHet0sxg
 require "redis"
+require "./structs/garnet_video"
 module Garnet
   class Downloader
     def initialize()
@@ -18,16 +19,18 @@ module Garnet
     end
 
     private def downloadVideo(msg : JSON::Any)
+      msg = GarnetVideo.new(msg)
+      msg.triggerDownload
       @redis.set(Garnet::ACTIVE_DOWNLOAD, msg.to_json)
-      puts "Downloading video: #{msg["video_title"]}"
-      ydl_vid = Ydl::Video.new(msg["url"].to_s)
-      if msg["quality"].to_s.downcase == "best"
+      puts "Downloading video: #{msg.video_title}"
+      ydl_vid = Ydl::Video.new(msg.url.to_s)
+      if msg.quality.downcase == "best"
         ydl_vid.download_and_mux(ydl_vid.best_formats)
       else
-        ydl_vid.download(msg["quality"].to_s)
+        ydl_vid.download(msg.quality.to_s)
       end
-      puts "Downloading video complete: #{msg["video_title"]}"
-      @redis.publish(Garnet::NOTIFY_QUEUE, {"message": "Download complete!", "video_title": msg["video_title"], "video_url": msg["url"]})
+      puts "Downloading video complete: #{msg.video_title}"
+      @redis.publish(Garnet::NOTIFY_QUEUE, {"message": "Download complete!", "video_title": msg.video_title, "video_url": msg.url})
       @redis.del(Garnet::ACTIVE_DOWNLOAD)
     end
   end
