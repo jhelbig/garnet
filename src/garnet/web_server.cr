@@ -112,7 +112,7 @@ module Garnet
         )
       ])
       address = server.bind_tcp Garnet::BIND_INTERFACE, Garnet::BIND_PORT
-      puts "Listening on http://#{address}"
+      puts "Garnet API Listening on http://#{address}"
       server.listen
     end
   end

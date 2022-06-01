@@ -87,7 +87,7 @@ export default {
   methods: {
     purgeDownloadQueue() {
       this.$bvModal.hide('bv-modal-confirm-purge');
-      fetch("http://localhost/downloads/list", {
+      fetch("/api/downloads/list", {
         method: "PURGE"
       })
       .then(response => response.json())
@@ -96,7 +96,7 @@ export default {
       })
     },
     deleteDownloadFromQueue(did) {
-      fetch("http://localhost/downloads/list", {
+      fetch("/api/downloads/list", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json"
@@ -109,14 +109,14 @@ export default {
       })
     },
     fetchDownloadQueueResults() {
-      fetch("http://localhost/downloads/list", {
+      fetch("/api/downloads/list", {
         method: "GET"
       })
       .then(response => response.json())
       .then(data => {
         this.results = data;
       }).then(() => {
-        fetch("http://localhost/downloads/active", {
+        fetch("/api/downloads/active", {
           method: "GET"
         })
         .then(response => response.json())

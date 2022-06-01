@@ -1,0 +1,17 @@
+server {
+  listen 80;
+  server_name  ${GARNET_FQDN};
+
+  root /usr/share/project/web/dist;
+  error_page 500 502 503 504 /500.html;
+  error_page 404 /404.html;
+
+  location /api/ {
+    proxy_pass http://${GARNET_HTTP_HOST}:${GARNET_HTTP_PORT}/;
+  }
+  
+  location / {
+    root   /usr/share/project/web/dist;
+    index  index.html index.htm;
+  }
+}

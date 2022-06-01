@@ -57,7 +57,7 @@ export default {
       this.$emit('updateQualityResults', [])
       this.$emit('formSubmitted', true);
       event.preventDefault()
-      fetch("http://localhost/video/info", {
+      fetch("/api/video/info", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

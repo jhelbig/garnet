@@ -6,6 +6,7 @@ Dockerfile
 dump*
 garnet*
 dev
+test
 *.komodoproject
 ./lib
 ./spec

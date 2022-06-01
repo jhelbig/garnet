@@ -95,7 +95,7 @@ export default {
   },
   methods: {
     async downloadContent(cid) {
-      fetch("http://localhost/video/download", {
+      fetch("/api/video/download", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

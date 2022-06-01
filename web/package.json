@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --port 8000",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build && cp src/assets/404.gif dist/img/404.gif && cp src/assets/500.gif dist/img/500.gif",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
